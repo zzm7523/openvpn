@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros">
+    <VPN_CLIENT>D:\open_my_work\vpn_client</VPN_CLIENT>
+    <SOURCEBASE>D:\open_my_work\openvpn</SOURCEBASE>
+    <TAP_WINDOWS_HOME>D:\open_my_work\tap-windows-9.9.2</TAP_WINDOWS_HOME>
+    <PKCS11H_HOME>D:\open_my_work\pkcs11-helper-1.26</PKCS11H_HOME>
+    <PTHREAD2_HOME>D:\open_my_work\pthreads-w32-2-9-1\pthreads.2</PTHREAD2_HOME>
+    <OPENSSL_HOME>D:\open_my_work\openssl-1.1.1c</OPENSSL_HOME>
+    <LZO_HOME>D:\open_my_work\lzo-2.10</LZO_HOME>
+    <QUAZIP_HOME>D:\open_my_work\quazip-1.1</QUAZIP_HOME>
+    <ZLIB_HOME>D:\open_my_work\zlib-1.2.8</ZLIB_HOME>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_PropertySheetDisplayName>openvpn.win32</_PropertySheetDisplayName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>libcrypto_static.lib;libssl_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENSSL_HOME);$(LZO_HOME);$(PTHREAD2_HOME);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\shared;C:\Program Files (x86)\Windows Kits\10\Include\10.0.10586.0\um;$(SOURCEBASE);$(SOURCEBASE)\include;$(SOURCEBASE)\src\compat;$(PTHREAD2_HOME);$(LZO_HOME)\include;$(TAP_WINDOWS_HOME)\include;$(OPENSSL_HOME)\include;$(OPENSSL_HOME)\ms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="VPN_CLIENT">
+      <Value>$(VPN_CLIENT)</Value>
+    </BuildMacro>
+    <BuildMacro Include="SOURCEBASE">
+      <Value>$(SOURCEBASE)</Value>
+    </BuildMacro>
+    <BuildMacro Include="TAP_WINDOWS_HOME">
+      <Value>$(TAP_WINDOWS_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PKCS11H_HOME">
+      <Value>$(PKCS11H_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PTHREAD2_HOME">
+      <Value>$(PTHREAD2_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="OPENSSL_HOME">
+      <Value>$(OPENSSL_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LZO_HOME">
+      <Value>$(LZO_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="QUAZIP_HOME">
+      <Value>$(QUAZIP_HOME)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ZLIB_HOME">
+      <Value>$(ZLIB_HOME)</Value>
+    </BuildMacro>	
+  </ItemGroup>
+</Project>

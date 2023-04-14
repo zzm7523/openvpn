@@ -1,0 +1,105 @@
+#linux x86_64 debug configure
+#export CC=gcc
+export CFLAGS="-g -pie -fPIE"
+#启用性能检测时不要启用其它检测项
+#export CPPFLAGS="-D_DEBUG -DPERF_STATS_CHECK -DPACKET_TTL_CHECK"
+export CPPFLAGS="-D_DEBUG -DPACKET_BUFFER_LIST_CHECK -DHASH_TABLE_CHECK -DPACKET_TRUNCATION_CHECK -DPACKET_BUFFER_RANDOM_DROP -DTHREAD_ACCESS_CHECK"
+#export LDFLAGS="-ldl"
+
+export IFCONFIG=/sbin/ifconfig
+export IPROUTE=/sbin/ip
+export ROUTE=/sbin/route
+
+#必须用OPENSSL_CRYPTO_LIBS覆盖pkg_config --libs libcrypto
+#用export PKG_CONFIG_LIBDIR=${OPENSSL_HOME}是无用的, 看一下libcrypto.pc内容就明白了
+export DESPICABLE_ME=/home/zzy/despicable_me/trunk
+export OPENSSL_HOME=${DESPICABLE_ME}/gm-openssl-1.0.1
+export OPENSSL_CRYPTO_CFLAGS=-I${OPENSSL_HOME}/include
+export OPENSSL_SSL_CFLAGS=-I${OPENSSL_HOME}/include
+export LZO_CFLAGS=-I${DESPICABLE_ME}/lzo-2.10/include
+export PKCS11_HELPER_CFLAGS="-I${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_x86_64/include -I${DESPICABLE_ME}/pkcs11-helper-1.26/include"
+export OPENSSL_CRYPTO_LIBS=${OPENSSL_HOME}/build_debug_x86_64/libcrypto.a
+export OPENSSL_SSL_LIBS=${OPENSSL_HOME}/build_debug_x86_64/libssl.a
+export LZO_LIBS=${DESPICABLE_ME}/lzo-2.10/build_release_x86_64/src/.libs/liblzo2.a
+export PKCS11_HELPER_LIBS=${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_x86_64/lib/.libs/libpkcs11-helper.a
+#export PKG_CONFIG_LIBDIR=${OPENSSL_HOME}:${DESPICABLE_ME}/pkcs11-helper-1.26/lib:/usr/lib/i386-linux-gnu/pkgconfig
+
+cd build_debug_x86_64
+../configure --enable-guomi --enable-masquerade --enable-iproute2 --enable-x509-alt-username --enable-pkcs11 --disable-dependency-tracking --prefix=/usr --with-plugindir='${prefix}/lib/openvpn'
+
+#../configure --enable-guomi --enable-masquerade --enable-iproute2 --enable-x509-alt-username --enable-pkcs11 --disable-dependency-tracking --with-mem-check=valgrind --prefix=/usr --with-plugindir='${prefix}/lib/openvpn'
+#valgrind --tool=memcheck --error-limit=no --suppressions=/home/despicable_me/zzy/trunk/openvpn/debug/valgrind-suppress --gen-suppressions=yes /home/despicable_me/zzy/trunk/openvpn/build_debug_x86_64/src/openvpn/openvpn --remote 192.168.2.128 2791 --config client.conf
+
+##########################################################################################################
+
+#linux x86_64 release configure
+#export CC=gcc
+export CFLAGS="-O2 -pie -fPIE"
+export CPPFLAGS=
+#export LDFLAGS="-ldl"
+
+export IFCONFIG=/sbin/ifconfig
+export IPROUTE=/sbin/ip
+export ROUTE=/sbin/route
+
+export DESPICABLE_ME=/home/zzy/despicable_me/trunk
+export OPENSSL_HOME=${DESPICABLE_ME}/gm-openssl-1.0.1
+export OPENSSL_CRYPTO_CFLAGS=-I${OPENSSL_HOME}/include
+export OPENSSL_SSL_CFLAGS=-I${OPENSSL_HOME}/include
+export LZO_CFLAGS=-I${DESPICABLE_ME}/lzo-2.10/include
+export PKCS11_HELPER_CFLAGS="-I${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_x86_64/include -I${DESPICABLE_ME}/pkcs11-helper-1.26/include"
+export OPENSSL_CRYPTO_LIBS=${OPENSSL_HOME}/build_release_x86_64/libcrypto.a
+export OPENSSL_SSL_LIBS=${OPENSSL_HOME}/build_release_x86_64/libssl.a
+export LZO_LIBS=${DESPICABLE_ME}/lzo-2.10/build_release_x86_64/src/.libs/liblzo2.a
+export PKCS11_HELPER_LIBS=${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_x86_64/lib/.libs/libpkcs11-helper.a
+#export PKG_CONFIG_LIBDIR=${OPENSSL_HOME}:${DESPICABLE_ME}/pkcs11-helper-1.26/lib:/usr/lib/i386-linux-gnu/pkgconfig
+
+cd build_release_x86_64
+../configure --enable-guomi --enable-masquerade --enable-iproute2 --enable-x509-alt-username --enable-pkcs11 --disable-dependency-tracking --prefix=/usr --with-plugindir='${prefix}/lib/openvpn'
+
+##########################################################################################################
+
+#linux mips64 release configure
+export CC=mips64el-loongson-linux-gcc
+export CFLAGS="-O2 -pie -fPIE"
+export CPPFLAGS=
+#export LDFLAGS="-ldl"
+
+export DESPICABLE_ME=/home/zzy/despicable_me/trunk
+export OPENSSL_HOME=${DESPICABLE_ME}/gm-openssl-1.0.1
+export OPENSSL_CRYPTO_CFLAGS=-I${OPENSSL_HOME}/include
+export OPENSSL_SSL_CFLAGS=-I${OPENSSL_HOME}/include
+export LZO_CFLAGS=-I${DESPICABLE_ME}/lzo-2.10/include
+export PKCS11_HELPER_CFLAGS="-I${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_mips64/include -I${DESPICABLE_ME}/pkcs11-helper-1.26/include"
+export OPENSSL_CRYPTO_LIBS=${OPENSSL_HOME}/build_release_mips64/libcrypto.a
+export OPENSSL_SSL_LIBS=${OPENSSL_HOME}/build_release_mips64/libssl.a
+export LZO_LIBS=${DESPICABLE_ME}/lzo-2.10/build_release_mips64/src/.libs/liblzo2.a
+export PKCS11_HELPER_LIBS=${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_mips64/lib/.libs/libpkcs11-helper.a
+#export PKG_CONFIG_LIBDIR=${OPENSSL_HOME}:${DESPICABLE_ME}/pkcs11-helper-1.26/lib:/usr/lib/i386-linux-gnu/pkgconfig
+
+cd build_release_mips64
+../configure --host=mips64el-loongson-linux --enable-guomi --enable-masquerade --enable-iproute2 --enable-x509-alt-username --disable-dependency-tracking
+
+##########################################################################################################
+
+#android configure
+export CC=arm-linux-androideabi-gcc
+export CFLAGS="-O2 -pie -fPIE"
+export CPPFLAGS=
+#export LDFLAGS="-ldl"
+
+export DESPICABLE_ME=/home/zzy/despicable_me/trunk
+export OPENSSL_HOME=${DESPICABLE_ME}/gm-openssl-1.0.1
+export OPENSSL_CRYPTO_CFLAGS=-I${OPENSSL_HOME}/include
+export OPENSSL_SSL_CFLAGS=-I${OPENSSL_HOME}/include
+export LZO_CFLAGS=-I${DESPICABLE_ME}/lzo-2.10/include
+export PKCS11_HELPER_CFLAGS="-I${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_aarch64/include -I${DESPICABLE_ME}/pkcs11-helper-1.26/include"
+export OPENSSL_CRYPTO_LIBS=${OPENSSL_HOME}/build_release_aarch64/libcrypto.a
+export OPENSSL_SSL_LIBS=${OPENSSL_HOME}/build_release_aarch64/libssl.a
+export LZO_LIBS=${DESPICABLE_ME}/lzo-2.10/build_release_aarch64/src/.libs/liblzo2.a
+export PKCS11_HELPER_LIBS=${DESPICABLE_ME}/pkcs11-helper-1.26/build_release_aarch64/lib/.libs/libpkcs11-helper.a
+#export PKG_CONFIG_LIBDIR=${OPENSSL_HOME}:${DESPICABLE_ME}/pkcs11-helper-1.26/lib:/usr/lib/i386-linux-gnu/pkgconfig
+
+# Windows, Android平台主要用作客户端, 一般不需要启用TUN线程; Android平台不支持自旋锁
+cd build_release_arm
+../configure --host=arm-eabi-linux --enable-guomi --enable-masquerade --enable-iproute2 --enable-x509-alt-username --disable-tun-thread --disable-spin-lock --disable-pf --disable-port-share --disable-dependency-tracking --disable-plugin-auth-pam
